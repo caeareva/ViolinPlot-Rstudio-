@@ -1,0 +1,189 @@
+
+#################################################################################################################
+#    Name: Carlos Arevalo (caeareva)
+#
+#    File: ViolinPlot UPP1 Nanopore Sequencing Results
+#    Purpose: Violin plot of transcripts isoforms analysis using ggplot2
+#
+################################################################################################################
+
+# access to ggplot2 library 
+library(ggplot2)
+
+# UPP1_NANOPORE is the data file uploaded in tab-delimited text format to R
+view(UPP1_NANOPORE)  
+
+# greq wt form for the 629 isoform
+grep("WT-629", NANOPORE_TEST)
+
+# grep the wt form for the 514 isoform, and so on...for each isoform in each condition (WT and Mt)
+grep("WT-514", NANOPORE_TEST)
+
+grep("WT-402", NANOPORE_TEST)
+
+grep("WT-284", NANOPORE_TEST)
+
+grep("WT-237", NANOPORE_TEST)
+
+grep("WT-629", NANOPORE_TEST$V1)
+
+grep("WT-514", NANOPORE_TEST$V1)
+
+grep("WT-402", NANOPORE_TEST$V1)
+
+grep("WT-284", NANOPORE_TEST$V1)
+
+grep("WT-237", NANOPORE_TEST$V1)
+
+# check if you are getting the right position for targeted values
+NANOPORE_TEST[2,]
+
+NANOPORE_TEST[8,]
+   
+NANOPORE_TEST[14,]
+
+NANOPORE_TEST[20,]
+
+NANOPORE_TEST[26,]
+
+NANOPORE_TEST[grep("WT-629", NANOPORE_TEST)]
+
+NANOPORE_TEST[grep("WT-514", NANOPORE_TEST)]
+
+NANOPORE_TEST[grep("WT-402", NANOPORE_TEST)]
+
+NANOPORE_TEST[grep("WT-284", NANOPORE_TEST)]
+
+NANOPORE_TEST[grep("WT-237", NANOPORE_TEST)]
+
+# assign a column position to the isoforms
+subset(NANOPORE_TEST, V1 =="WT-629")
+
+subset(NANOPORE_TEST, V1 =="WT-514")
+  
+subset(NANOPORE_TEST, V1 =="WT-402")
+  
+subset(NANOPORE_TEST, V1 =="WT-284")
+ 
+subset(NANOPORE_TEST, V1 =="WT-237")
+
+# store isoforms in an object that will be easier to remember.
+wt1 <- subset(NANOPORE_TEST, V1 =="WT-629")
+
+wt2 <- subset(NANOPORE_TEST, V1 =="WT-514")
+
+wt3 <- subset(NANOPORE_TEST, V1 =="WT-402")
+
+wt4 <- subset(NANOPORE_TEST, V1 =="WT-284")
+
+wt5 <- subset(NANOPORE_TEST, V1 =="WT-237")
+
+# check that the data values correspond to each object
+mt1
+
+wt1
+
+wt2
+
+wt3
+
+wt4
+
+wt5
+
+# store the isoforms in mt form in objects
+mt1 <- subset(NANOPORE_TEST, V1 =="MT-629")
+
+mt2 <- subset(NANOPORE_TEST, V1 =="MT-514")
+
+mt3 <- subset(NANOPORE_TEST, V1 =="MT-402")
+
+mt4 <- subset(NANOPORE_TEST, V1 =="MT-284")
+
+mt5 <- subset(NANOPORE_TEST, V1 =="MT-237")
+
+# check the values correspond with the data file
+mt1
+
+mt2
+
+mt3
+
+mt4
+
+mt5
+
+# develop a UPP1-514 isoform data analysiswt1$V3
+mt1$V3
+
+# calculate a t-test for UPP1-629 isoform ( this is the right test for this amount of samples).
+t.test(wt1$V3,mt1$V3)
+
+# calculate a Wilcoxon rank-sum test for UPP1-629 isoform
+wilcox.test(wt1$V3,mt1$V3)
+
+# develop a UPP1-514 isoform data analysis 
+wt2$V3
+
+mt2$V3
+
+# calculate a t test for UPP1-514 isoform
+t.test(wt2$V3,mt2$V3)
+
+# calculate a wilcoxon rank sum test for UPP1-514 isoform
+wilcox.test(wt2$V3,mt2$V3)
+
+# develop a UPP1_402 isoform data analysis
+wt3$V3
+
+mt3$V3
+
+# calculate a t test for UPP1_402 isoform
+t.test(wt3$V3,mt3$V3)
+
+# calculate a wilcoxon rank sum test for UPP1_402 isoform
+wilcox.test(wt3$V3,mt3$V3)
+
+# develop a UPP1-284 isoform data analysis
+wt4$V3
+
+mt4$V3
+
+# calculate a t-test for UPP1-284 isoform
+t.test(wt4$V3,mt4$V3)
+
+# calculate a Wilcoxon rank-sum test for UPP1-284 isoform
+wilcox.test(wt4$V3,mt4$V3)
+
+# develop a UPP1-237 isoform data analysis
+wt5$V3
+
+mt5$V3
+
+# calculate a t-test for UPP1-237 isoform
+t.test(wt5$V3,mt5$V3)
+
+# calculate a Wilcoxon rank-sum test for UPP1-237 isoform
+wilcox.test(wt5$V3,mt5$V3)
+
+# graph all isoforms in violin plot ( or other plot)
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3)) + geom_violin()
+
+# regraph all isoforms in a violin and point graph
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3*100, fill=V1)) + geom_violin() + geom_point() + ylab("Isoform Usage Frequency") + xlab("Condition") + theme_bw()
+
+# graph again using more details for all UPP1 isoforms
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3*100, fill="V1")) + geom_violin(color="green", trim=FALSE) + geom_point() + ylab("Isoform Usage Frequency") + xlab("Condition") + theme_bw()
+
+# print volin plot 
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3*100, fill=V1)) + geom_violin(color="green", trim=FALSE) + geom_point(position=position_jitterdodge(jitter.width=0.18, jitter.height=0, seed=1234) ) + ylab("Isoform Usage Frequency") + xlab("Condition") + theme_bw() + annotate("rect", xmin=1, xmax=1,ymin=1, ymax=1)+ annotate("rect", xmin=1, xmax=1, ymin=1, ymax=1)
+
+# label legend in the violin plot
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3*100, fill=V1, legend=c("WT, WT"))) + geom_violin(color="green", trim=FALSE) + geom_point(position=position_jitterdodge(jitter.width=0.18, jitter.height=0, seed=1234) ) + ylab("Isoform Usage Frequency") + xlab("Condition") + theme_bw() + annotate("rect", xmin=1, xmax=1,ymin=1, ymax=1)+ annotate("rect", xmin=1, xmax=1, ymin=1, ymax=1) 
+
+# add a legend to the plot
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3*100, fill=V1)) + geom_violin(color="green", trim=FALSE) + geom_point(position=position_jitterdodge(jitter.width=0.18, jitter.height=0, seed=1234) ) + ylab("Isoform Usage Frequency") + xlab("Condition") + labs(fill="Condition") + theme_bw() + annotate("rect", xmin=1, xmax=1,ymin=1, ymax=1)+ annotate("rect", xmin=1, xmax=1, ymin=1, ymax=1)
+
+# add contour to the violin figures
+ggplot(UPP1_NANOPORE, aes(x=V2, y=V3*100, fill=V1)) + geom_violin(color="black", trim=FALSE) + geom_point(position=position_jitterdodge(jitter.width=0.18, jitter.height=0, seed=1234) ) + ylab("Isoform Usage Frequency") + xlab("Condition") + labs(fill="Condition") + theme_bw() + annotate("rect", xmin=1, xmax=1,ymin=1, ymax=1)+ annotate("rect", xmin=1, xmax=1, ymin=1, ymax=1)
+
