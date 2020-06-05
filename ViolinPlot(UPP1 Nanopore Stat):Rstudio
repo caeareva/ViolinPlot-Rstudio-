@@ -2,7 +2,7 @@
 #################################################################################################################
 #    Name: Carlos Arevalo (caeareva)
 #
-#    File: ViolinPlot UPP1 Nanopore Sequencing Results
+#    File: ViolinPlot for Nanopore Sequencing Results
 #    Purpose: Violin plot of transcripts isoforms analysis using ggplot2
 #
 ################################################################################################################
